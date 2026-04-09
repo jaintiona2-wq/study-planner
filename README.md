@@ -8,6 +8,7 @@ A web app to manage study tasks efficiently.
 - Save tasks (local storage)
 - Dark mode
 - Deadlines
+-  Pomodoro timer for focused study sessions
 
 ## Built with
 - HTML
