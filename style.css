@@ -62,4 +62,8 @@ li {
     background: #222;
     color: white;
     border: 1px solid #555;
+}#timer {
+    font-size: 40px;
+    margin: 20px;
+    font-weight: bold;
 }
