@@ -62,8 +62,7 @@ function removeTask(task) {
     document.getElementById("emptyMsg").style.display = "block";
 }function toggleDarkMode() {
     document.body.classList.toggle("dark");
-}
-let time = 1500; // 25 minutes
+}let time = 1500; // 25 minutes
 let interval;
 
 function startTimer() {

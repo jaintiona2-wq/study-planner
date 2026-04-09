@@ -8,17 +8,26 @@
 
     <h1>📚 Study Planner</h1>
 
+    <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+
+    <br><br>
+
     <input type="text" id="taskInput" placeholder="Enter a task">
+    <input type="date" id="dateInput">
     <button onclick="addTask()">Add Task</button>
+
+    <p id="emptyMsg">No tasks yet 📭</p>
 
     <ul id="taskList"></ul>
 
+    <h2>⏰ Pomodoro Timer</h2>
+
+    <p id="timer">25:00</p>
+
+    <button onclick="startTimer()">Start</button>
+    <button onclick="resetTimer()">Reset</button>
+
     <script src="script.js"></script>
+
 </body>
-</html><p id="emptyMsg">No tasks yet 📭</p><button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button><input type="date" id="dateInput">
-<h2>⏰ Pomodoro Timer</h2>
-
-<p id="timer">25:00</p>
-
-<button onclick="startTimer()">Start</button>
-<button onclick="resetTimer()">Reset</button>
+</html>
