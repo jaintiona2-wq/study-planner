@@ -1,41 +1,52 @@
 // Load tasks when page opens
-window.onload = function() {
+window.onload = function () {
     loadTasks();
 };
 
-function addTask(){
+// Add Task
+function addTask() {
     let input = document.getElementById("taskInput");
     let task = input.value;
+
+    let date = document.getElementById("dateInput").value;
 
     if (task === "") return;
 
     createTaskElement(task, date);
-
     saveTask(task);
 
     input.value = "";
-}document.getElementById("emptyMsg").style.display = "none";let date = document.getElementById("dateInput").value;
+    document.getElementById("emptyMsg").style.display = "none";
 
-function createTaskElement(task,date) {
+    updateProgress();
+}
+
+// Create Task Element
+function createTaskElement(task, date) {
     let li = document.createElement("li");
-    li.innerText = task+ (date ? " (Due: " + date + ")" : "");
+    li.innerText = task + (date ? " (Due: " + date + ")" : "");
 
     // Mark as done
-    li.onclick = function() {
+    li.onclick = function () {
         li.classList.toggle("done");
+        updateProgress();
     };
 
     // Delete button
     let deleteBtn = document.createElement("button");
-    deleteBtn.innerText = " ❌";
-    deleteBtn.onclick = function() {
+    deleteBtn.innerText = "❌";
+
+    deleteBtn.onclick = function () {
         li.remove();
         removeTask(task);
+        updateProgress();
     };
 
     li.appendChild(deleteBtn);
 
     document.getElementById("taskList").appendChild(li);
+
+    updateProgress();
 }
 
 // Save task
@@ -48,9 +59,14 @@ function saveTask(task) {
 // Load tasks
 function loadTasks() {
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks.forEach(task => createTaskElement(task));if (tasks.length === 0) {
-    document.getElementById("emptyMsg").style.display = "block";
-}
+
+    tasks.forEach(task => createTaskElement(task));
+
+    if (tasks.length === 0) {
+        document.getElementById("emptyMsg").style.display = "block";
+    }
+
+    updateProgress();
 }
 
 // Remove task
@@ -58,11 +74,19 @@ function removeTask(task) {
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     tasks = tasks.filter(t => t !== task);
     localStorage.setItem("tasks", JSON.stringify(tasks));
-}if (tasks.length === 0) {
-    document.getElementById("emptyMsg").style.display = "block";
-}function toggleDarkMode() {
+
+    if (tasks.length === 0) {
+        document.getElementById("emptyMsg").style.display = "block";
+    }
+}
+
+// Dark Mode
+function toggleDarkMode() {
     document.body.classList.toggle("dark");
-}let time = 1500; // 25 minutes
+}
+
+// Timer
+let time = 1500;
 let interval;
 
 function startTimer() {
@@ -90,4 +114,19 @@ function resetTimer() {
     interval = null;
     time = 1500;
     document.getElementById("timer").innerText = "25:00";
+}
+
+// Progress
+function updateProgress() {
+    let tasks = document.querySelectorAll("li");
+    let doneTasks = document.querySelectorAll(".done");
+
+    let total = tasks.length;
+    let done = doneTasks.length;
+
+    let percent = total === 0 ? 0 : Math.round((done / total) * 100);
+
+    document.getElementById("progressBar").value = percent;
+    document.getElementById("progressText").innerText =
+        percent + "% completed";
 }
