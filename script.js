@@ -63,3 +63,32 @@ function removeTask(task) {
 }function toggleDarkMode() {
     document.body.classList.toggle("dark");
 }
+let time = 1500; // 25 minutes
+let interval;
+
+function startTimer() {
+    if (interval) return;
+
+    interval = setInterval(() => {
+        if (time <= 0) {
+            clearInterval(interval);
+            alert("Time's up! Take a break 🎉");
+            return;
+        }
+
+        time--;
+
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+
+        document.getElementById("timer").innerText =
+            `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    }, 1000);
+}
+
+function resetTimer() {
+    clearInterval(interval);
+    interval = null;
+    time = 1500;
+    document.getElementById("timer").innerText = "25:00";
+}
